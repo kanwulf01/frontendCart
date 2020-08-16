@@ -2,9 +2,9 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import Axios from 'axios';
 import createPersistedState from 'vuex-persistedstate';
-'http://kanwulf01.pythonanywhere.com/'
+'https://kanwulf01.pythonanywhere.com/'
 'http://localhost:8000/'
-const URLdefault = 'http://kanwulf01.pythonanywhere.com/';
+const URLdefault = 'https://kanwulf01.pythonanywhere.com/';
 
 Vue.use(Vuex)
 
