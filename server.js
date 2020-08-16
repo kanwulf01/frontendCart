@@ -1,19 +1,19 @@
-/*
+
 const express = require('express')
 const serveStatic = require('serve-static')
 const path = require('path')
 const app = express()
 
 app.use('/', serveStatic(path.join(__dirname, '/dist')))
-app.use('/UserPanel',history())
+
 
 const port = process.env.PORT || 8080
 app.listen(port)
 
 console.log("listening on port:" + port)
-*/
 
 
+/*
 const express = require('express');
 const path = require('path');
 const history = require('connect-history-api-fallback');
@@ -37,4 +37,4 @@ var server = app.listen(process.env.PORT || 8080, function () {
   var port = server.address().port;
   console.log("App now running on port", port);
 });
-//
+*/
