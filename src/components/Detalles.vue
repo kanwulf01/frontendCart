@@ -58,7 +58,8 @@ export default {
             'addCarrito',
             'setCantidaProducto',
             'restaCantidadProducto',
-            'addCantidadesAgregadas'
+            'addCantidadesAgregadas',
+            
         ]),
         LlevaCarrito() {
             let validaID = true;
@@ -100,7 +101,15 @@ export default {
                ;
             }
 
-        }
+        },
+        getProductosUpdateados() {
+            this.$store.dispatch('api_getProducts')
+            .then(response => {
+                this.setProducts(response.data)
+
+
+            })
+        },
     },
     created() {
     //Busar el id que esta en el store y pintar el producto

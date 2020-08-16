@@ -16,14 +16,13 @@
       dark
       color="pink"
     >
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
       <v-toolbar-title>Carrito de Compras</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
-      <v-btn >
-        BorrarTodo
+      <v-btn @click="ComprarTodo()">
+       Comprar Todo
       </v-btn>
     </v-app-bar>
 
@@ -34,12 +33,12 @@
             color="#385F73"
             dark
           >
-            <v-card-title class="headline">Unlimited music now</v-card-title>
+            <v-card-title class="headline">Carrito de Compras</v-card-title>
 
-            <v-card-subtitle>Listen to your favorite artists and albums whenever and wherever, online and offline.</v-card-subtitle>
+            <v-card-subtitle>Tu Carrito de Compras Online</v-card-subtitle>
 
             <v-card-actions>
-              <v-btn text>Listen Now</v-btn>
+              <v-btn text></v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
@@ -111,10 +110,12 @@ export default {
         ...mapGetters([
             'getCarrito',
             'getCantidadesAgregadas',
+            'getUser',
         ]),
         ...mapMutations([
           "setProducts",
           "deleteProducto",
+          "setCarrito"
         ]),
         getProductosUpdateados() {
             this.$store.dispatch('api_getProducts')
@@ -133,12 +134,8 @@ export default {
         eliminarProducto(articulo) {
           //restaurar en la cantidad en la BD
           //elimnar el articulo del carrito de compras
-
-          this.getCarrito().forEach((element)=>{
-            if(element.id == articulo.id) {
-              this.deleteProducto(element);
-            }
-          })
+          this.deleteProducto(articulo);
+          
           
           let object = {
                          pk:articulo.id,
@@ -154,6 +151,12 @@ export default {
                      })
                      
 
+        },
+        ComprarTodo() {
+          //que se reinicie el proceso
+          if(this.getCarrito() != 0){alert("Compra Satisfactoria" || this.getUser() != '')
+          this.setCarrito([])}else{alert("No tiene productos en carrito o No esta logueado")}
+          
         }
     },
     created() {

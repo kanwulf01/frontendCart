@@ -7,13 +7,18 @@
       dense
       dark
     >
+   
+    
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
       <v-toolbar-title>TiendaxD</v-toolbar-title>
 
       <v-spacer></v-spacer>
-      <v-btn @click="gotoCarrito()">
-        Carrito
+      <v-btn icon @click="gotoCarrito()">
+        <v-icon>mdi-cart</v-icon>
+      </v-btn>
+      <v-btn @click="gotoHome()">
+        Home
       </v-btn>
       <v-btn v-if="UserExist()" @click="dialog = true">
         Login
@@ -36,8 +41,10 @@
      
 
     </v-app-bar>
-    <v-row justify="center">
-        <v-dialog v-model="dialog" persistent max-width="500px">
+    
+    <div data-app>
+     <v-row justify="center">
+        <v-dialog v-model="dialog" persistent max-width="500px" max-height="500px">
           <v-card>
             <v-card-title>
               <span class="headline">Login</span>
@@ -73,10 +80,13 @@
           </v-card>
         </v-dialog>
       </v-row>
+</div>
     <v-content>
 <router-view/>
 </v-content>
+
   </div>
+  
 
 </template>
 
@@ -135,6 +145,9 @@ export default {
        
         return true}
      
+    },
+    gotoHome() {
+       this.$router.push({path:'/'})
     },
     LogOutGoogle(){
     

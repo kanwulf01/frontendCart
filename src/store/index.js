@@ -2,8 +2,9 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import Axios from 'axios';
 import createPersistedState from 'vuex-persistedstate';
-
-const URLdefault = 'http://localhost:8000/';
+'http://kanwulf01.pythonanywhere.com/'
+'http://localhost:8000/'
+const URLdefault = 'http://kanwulf01.pythonanywhere.com/';
 
 Vue.use(Vuex)
 
@@ -67,13 +68,16 @@ export default new Vuex.Store({
     },
    setProducts:(state,value) => {
      state.Productos = value;
+   },
+   setCarrito:(state, value) => {
+     state.Carrito = value;
    }
   },
   actions: {//Trae Productos
   api_getProducts:(context, credentials) => {
 
       return new Promise((resolve, reject) => {
-        Axios.get('http://localhost:8000/products/listaProductos/')
+        Axios.get(URLdefault+'products/listaProductos/')
         .then(repsonse => {
           resolve(repsonse)
         }).catch(error=>{
@@ -85,7 +89,7 @@ export default new Vuex.Store({
 
     Resta_STock:(context,credentials) =>{//resta cantidades
       return new Promise((resolve)=>{
-        Axios.patch('http://localhost:8000/products/edita/'+credentials.pk+'/'+credentials.cantidad+'/')
+        Axios.patch(URLdefault+'products/edita/'+credentials.pk+'/'+credentials.cantidad+'/')
         .then(res=>{
           resolve(res)
         }).catch(err=>{
@@ -95,7 +99,7 @@ export default new Vuex.Store({
     },
     restauraCantidad:(context,credentials)=>{//suma cantidades
       return new Promise((resolve)=>{
-        Axios.patch('http://localhost:8000/products/restaura/'+credentials.pk+'/'+credentials.cantidad+'/')
+        Axios.patch(URLdefault+'products/restaura/'+credentials.pk+'/'+credentials.cantidad+'/')
         .then(res=>{
           resolve(res)
         }).catch(err=>{
@@ -109,7 +113,7 @@ export default new Vuex.Store({
     //login Normal 
     api_django_Login:(context, credentials) =>{
       return new Promise((resolve,reject)=>{
-        Axios.post('http://localhost:8000/users/token/',credentials)
+        Axios.post(URLdefault+'users/token/',credentials)
       .then(response=>{
         //alert(response.data.user)
         resolve(response);
@@ -117,6 +121,42 @@ export default new Vuex.Store({
         console.log(error)
       })
     })
+  },
+  api_django_get_productos: (context, credentials) => {
+    
+    Axios.defaults.headers = {
+      "Content-Type": "application/json",
+      
+    };
+    return new Promise((resolve, reject) => {
+      Axios.get(
+        URLdefault+`products/testpagination/${credentials.pagespagination}/${credentials.page}/`
+      )
+        .then(res => {
+          console.log(res.data);
+          resolve(res);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    });
+  },
+  api_django_getNumberCantidadbyProducts: (context) => {
+    
+    Axios.defaults.headers = {
+      "Content-Type": "application/json",
+     
+    };
+    ///MODIFICADO AHORA
+    return new Promise((resolve, reject) => {
+      Axios.get(URLdefault+'products/getCantidadTaskbyCat/')
+        .then(res => {
+          resolve(res);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    });
   },
   },
 
