@@ -51,7 +51,9 @@
                             size="125"
                             tile
                           >
-                            <v-img :src="item.images[0].image"></v-img>
+                            <v-img v-if="item.images[0]!=undefined" :src="item.images[0].image"></v-img>
+                            
+                            <v-img v-else src="../assets/noimage.jpeg"></v-img>
                           </v-avatar>
                         </div>
                       </v-card>
